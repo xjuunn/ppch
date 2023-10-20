@@ -1,9 +1,6 @@
 <template>
-  <div>
-
-  </div>
+    <div>chat</div>
 </template>
-
 <script setup>
 
 </script>

@@ -80,7 +80,7 @@ function clickitem(event) {
 .bar>.active .active_icon {
     display: inline-block;
     position: relative;
-    animation: activeanim .2s ease-in-out 0s 1 alternate none;
+    animation: activeanim .3s ease-in-out 0s 1 alternate none;
 }
 
 .active_icon {

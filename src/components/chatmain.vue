@@ -1,5 +1,5 @@
 <template>
- chatmain
+ 
 </template>
 <script setup>
 

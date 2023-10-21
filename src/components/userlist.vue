@@ -7,16 +7,17 @@
             </div>
             <div class="addicon"><img src="../../public/svg/add.svg" /></div>
         </div>
-        1
+        <div class="chatlist">
+            <chatitem></chatitem>
+        </div>
     </div>
 </template>
 <script setup>
-
+import chatitem from '@/components/chatitem.vue'
 </script>
 <style scoped>
 .box {
     height: 100%;
-    border-right: 1px solid #000;
 }
 
 .box>.search {

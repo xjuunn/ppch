@@ -15,7 +15,7 @@
         </div>
         <div class="space"></div>
         <div class="leftbar_bottom">
-            <img class="menu" src="../../public/svg/ellipsis-horizontal.svg"/>
+            <img class="menu" src="../../public/svg/option.svg"/>
         </div>
     </div>
 </template>

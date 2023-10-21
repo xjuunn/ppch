@@ -28,6 +28,7 @@ import chatmain from '@/components/chatmain.vue';
   width: 100vw;
   height: 100vh;
   display: flex;
+  overflow: hidden;
 }
 
 .appmain>.leftbar {
@@ -35,7 +36,8 @@ import chatmain from '@/components/chatmain.vue';
 }
 
 .appmain>.userlist {
-  width: 250px;
+  width: 280px;
+  border-right: 1px solid #e7e7e7;
 }
 
 .appmain>.chatmain {

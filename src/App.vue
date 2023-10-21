@@ -1,31 +1,53 @@
 <template>
-  <nav>
+  <!-- <nav>
     <router-link to="/">聊天</router-link> |
     <router-link to="/setting">设置</router-link> |
     <router-link to="/about">关于</router-link>
   </nav>
-  <router-view/>
+  <router-view/> -->
+  <div class="appmain">
+    <div class="leftbar">
+      <leftbar></leftbar>
+    </div>
+    <div class="userlist">
+      <userlist></userlist>
+    </div>
+    <div class="chatmain">
+      <chatmain></chatmain>
+    </div>
+  </div>
 </template>
+<script setup>
+import leftbar from '@/components/leftbar.vue';
+import userlist from '@/components/userlist.vue';
+import chatmain from '@/components/chatmain.vue';
+</script>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<style scoped>
+.appmain {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
 }
 
-nav {
-  padding: 30px;
+.appmain>.leftbar {
+  width: 60px;
+}
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+.appmain>.userlist {
+  width: 250px;
+}
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+.appmain>.chatmain {
+  flex: 1;
+}
+
+@media screen and (max-width:700px) {
+  .appmain>.userlist {
+    flex: 1;
   }
-}
-</style>
+
+  .appmain>.chatmain {
+    display: none;
+  }
+}</style>

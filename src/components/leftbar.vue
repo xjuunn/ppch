@@ -17,8 +17,6 @@
         <div class="leftbar_bottom">
             <img class="menu" src="../../public/svg/ellipsis-horizontal.svg"/>
         </div>
-
-
     </div>
 </template>
 <script setup>
@@ -26,16 +24,8 @@ function clickitem(event) {
     let active = document.getElementsByClassName("active")[0];
     if(active) active.classList.toggle("active");
     event.currentTarget.classList.add("active");
-    
-
-
 }
-
-
 </script>
-
-
-
 <style scoped>
 .bar {
     background-color: #f2f2f2;

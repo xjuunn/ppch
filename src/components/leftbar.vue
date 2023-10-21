@@ -1,6 +1,6 @@
 <template>
-    <div class="bar">
-        <div class="tx"></div>
+    <div class="bar" >
+        <div class="txbox"><div class="tx" :class="$store.state.online?'online':''"></div></div>
         <div class="leftbar_item item active" @click="clickitem($event)">
             <img @click="null" class="active_icon" src="../../public/svg/chatbubble-ellipses.svg" />
             <img @click="null"  class="default_icon" src="../../public/svg/chatbubble-outline.svg" />
@@ -20,6 +20,9 @@
     </div>
 </template>
 <script setup>
+import { useStore } from 'vuex';
+import { ref } from 'vue';
+const store = useStore();
 function clickitem(event) {
     let active = document.getElementsByClassName("active")[0];
     if(active) active.classList.toggle("active");
@@ -36,17 +39,36 @@ function clickitem(event) {
     text-align: center;
 }
 
-.bar>.tx {
+.bar>.txbox {
     display: inline-block;
     width: 40px;
     height: 40px;
-    background-image: url("https://odmg.pages.dev/file/18c46734460af2a2c8d78.jpg");
-    background-size: cover;
     border-radius: 20px;
     margin: 20px 10px 10px;
-
+    position: relative;
 }
-
+.tx{
+    background-image: url("https://odmg.pages.dev/file/18c46734460af2a2c8d78.jpg");
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+.tx::after{
+    content: "";
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 15px;
+    background: linear-gradient(135deg,#f35f5f,#ff0000);
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    border: #f2f2f2 3px solid;
+}
+.online::after{
+    background: linear-gradient(135deg,#70f35f,#0ad12c);
+}
 .bar>.item {
     height: 40px;
     width: 40px;

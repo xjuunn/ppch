@@ -5,6 +5,9 @@ export default createStore({
     online:false,
   },
   getters: {
+    isonline(state){
+      return state.online;
+    }
   },
   mutations: {
     isOnline(store,b){

@@ -8,12 +8,37 @@
             <div class="addicon"><img src="../../public/svg/add.svg" /></div>
         </div>
         <div class="chatlist">
-            <chatitem></chatitem>
+            <chatitem v-for="(item,index) in chatlist" :key="item.uid" :data="item"></chatitem>
         </div>
     </div>
 </template>
 <script setup>
 import chatitem from '@/components/chatitem.vue'
+import { ref } from 'vue';
+let chatlist = ref([]);
+chatlist.value.push({
+    img:"https://odmg.pages.dev/file/18c46734460af2a2c8d78.jpg",
+    uid:"skdfasdfadsdfa",
+    name:"odlime1",
+    content:"content1",
+    online:true
+})
+chatlist.value.push({
+    img:"https://odmg.pages.dev/file/18c46734460af2a2c8d78.jpg",
+    uid:"skdfasddfasdfa",
+    name:"odlime2",
+    content:"content2",
+    online:false
+})
+chatlist.value.push({
+    img:"https://odmg.pages.dev/file/395ad46d7d12166ca2777.png",
+    uid:"skddfasdfasdfa",
+    name:"odlime3",
+    content:"content3",
+    online:true
+})
+
+
 </script>
 <style scoped>
 .box {

@@ -3,9 +3,9 @@
         <div class="search">
             <div class="searchinput">
                 <img src="../../public/svg/search.svg"/>
-                <input placeholder="搜索"/>
+                <input v-model="searchStr" placeholder="搜索"/>
             </div>
-            <div class="addicon"><img src="../../public/svg/add.svg" /></div>
+            <div class="addicon" @click="addUser"><img src="../../public/svg/add.svg" /></div>
         </div>
         <div class="chatlist">
             <chatitem v-for="(item,index) in chatlist" :key="item.uid" :data="item"></chatitem>
@@ -15,28 +15,35 @@
 <script setup>
 import chatitem from '@/components/chatitem.vue'
 import { ref } from 'vue';
+import { addUser as addUserByUid } from '@/hooks/useCore';
 let chatlist = ref([]);
-chatlist.value.push({
-    img:"https://odmg.pages.dev/file/18c46734460af2a2c8d78.jpg",
-    uid:"skdfasdfadsdfa",
-    name:"odlime1",
-    content:"content1",
-    online:true
-})
-chatlist.value.push({
-    img:"https://odmg.pages.dev/file/18c46734460af2a2c8d78.jpg",
-    uid:"skdfasddfasdfa",
-    name:"odlime2",
-    content:"content2",
-    online:false
-})
-chatlist.value.push({
-    img:"https://odmg.pages.dev/file/395ad46d7d12166ca2777.png",
-    uid:"skddfasdfasdfa",
-    name:"odlime3",
-    content:"content3",
-    online:true
-})
+// chatlist.value.push({
+//     img:"https://odmg.pages.dev/file/18c46734460af2a2c8d78.jpg",
+//     uid:"skdfasdfadsdfa",
+//     name:"odlime1",
+//     content:"content1",
+//     online:true
+// })
+let searchStr = ref("");
+function addUser(){
+    addUserByUid(searchStr.value.trim());
+}
+
+
+// chatlist.value.push({
+//     img:"https://odmg.pages.dev/file/18c46734460af2a2c8d78.jpg",
+//     uid:"skdfasddfasdfa",
+//     name:"odlime2",
+//     content:"content2",
+//     online:false
+// })
+// chatlist.value.push({
+//     img:"https://odmg.pages.dev/file/395ad46d7d12166ca2777.png",
+//     uid:"skddfasdfasdfa",
+//     name:"odlime3",
+//     content:"content3",
+//     online:true
+// })
 
 
 </script>
@@ -59,6 +66,7 @@ chatlist.value.push({
     text-align: center;
     background-color: #F5F5F5;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .box .addicon>img {

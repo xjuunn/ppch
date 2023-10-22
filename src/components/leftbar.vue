@@ -1,9 +1,11 @@
 <template>
-    <div class="bar" >
-        <div class="txbox"><div class="tx" :class="$store.state.online?'online':''"></div></div>
+    <div class="bar">
+        <div class="txbox">
+            <div ref="tx" class="tx" :class="$store.state.online ? 'online' : ''"></div>
+        </div>
         <div class="leftbar_item item active" @click="clickitem($event)">
             <img @click="null" class="active_icon" src="../../public/svg/chatbubble-ellipses.svg" />
-            <img @click="null"  class="default_icon" src="../../public/svg/chatbubble-outline.svg" />
+            <img @click="null" class="default_icon" src="../../public/svg/chatbubble-outline.svg" />
         </div>
         <div class="leftbar_item item" @click="clickitem($event)">
             <img class="active_icon" src="../../public/svg/people.svg" />
@@ -15,19 +17,27 @@
         </div>
         <div class="space"></div>
         <div class="leftbar_bottom">
-            <img class="menu" src="../../public/svg/option.svg"/>
+            <img class="menu" src="../../public/svg/option.svg" />
         </div>
     </div>
 </template>
 <script setup>
 import { useStore } from 'vuex';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+import { getUserInfo ,setUserInfo} from '@/hooks/useCore';
 const store = useStore();
 function clickitem(event) {
     let active = document.getElementsByClassName("active")[0];
-    if(active) active.classList.toggle("active");
+    if (active) active.classList.toggle("active");
     event.currentTarget.classList.add("active");
 }
+let tx = ref(null);
+onMounted(() => {
+    tx.value.style.backgroundImage =`url("${getUserInfo().img}")`;
+})
+
+
+
 </script>
 <style scoped>
 .bar {
@@ -47,28 +57,32 @@ function clickitem(event) {
     margin: 20px 10px 10px;
     position: relative;
 }
-.tx{
-    background-image: url("https://odmg.pages.dev/file/18c46734460af2a2c8d78.jpg");
+
+.tx {
+    /* background-image: url("https://odmg.pages.dev/file/18c46734460af2a2c8d78.jpg"); */
     background-size: cover;
     width: 100%;
     height: 100%;
     border-radius: 50%;
 }
-.tx::after{
+
+.tx::after {
     content: "";
     display: inline-block;
     width: 10px;
     height: 10px;
     border-radius: 15px;
-    background: linear-gradient(135deg,#f35f5f,#ff0000);
+    background: linear-gradient(135deg, #f35f5f, #ff0000);
     position: absolute;
     right: 0px;
     bottom: 0px;
     border: #f2f2f2 3px solid;
 }
-.online::after{
-    background: linear-gradient(135deg,#70f35f,#0ad12c);
+
+.online::after {
+    background: linear-gradient(135deg, #70f35f, #0ad12c);
 }
+
 .bar>.item {
     height: 40px;
     width: 40px;
@@ -77,7 +91,8 @@ function clickitem(event) {
     border-radius: 10px;
     cursor: default;
 }
-.bar>.space{
+
+.bar>.space {
     flex: 1;
 }
 
@@ -108,25 +123,28 @@ function clickitem(event) {
 .active_icon {
     /* filter:invert(.5) sepia(1) saturate(0) hue-rotate(175deg);; */
 }
+
 @keyframes activeanim {
-    0%{
-        top:-1px
+    0% {
+        top: -1px
     }
-    80%{
+
+    80% {
         top: 1px;
     }
-    100%{
+
+    100% {
         top: 0px;
     }
 }
-.leftbar_bottom>.menu{
+
+.leftbar_bottom>.menu {
     width: 40%;
     transition: .2s;
     filter: saturate(0) hue-rotate(275deg);
 }
-.leftbar_bottom>.menu:hover{
+
+.leftbar_bottom>.menu:hover {
     filter: blur(0);
 }
-
-
 </style>

@@ -1,6 +1,6 @@
 import Peer from "peerjs";
 import { useStore } from 'vuex';
-import { baseUid } from "@/utils/comm";
+import { baseUid, defaultImg } from "@/utils/comm";
 
 let peer;
 let userList = new Map();
@@ -9,6 +9,18 @@ let userList = new Map();
 export const initPeer = () => {
     let uid = localStorage.getItem("uid");
     if (!uid) uid = getUuid();
+
+    let userInfo = JSON.parse(sessionStorage.getItem("userInfo"));
+    if (userInfo == null) {
+        userInfo = {
+            img: defaultImg,
+            uid: uid,
+            name: uid,
+            content: "无消息",
+            online: true
+        }
+        sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
+    }
     peer = new Peer(baseUid + uid);
     const store = useStore();
     // 初始化完成
@@ -35,7 +47,7 @@ export const addUser = (uid) => {
     conn.on('open', () => {
         userList.set(uid, conn);
         console.log("已连接1", uid);
-        sendMsg(conn,"testa")
+        sendMsg(conn, "testa")
     })
 }
 
@@ -45,8 +57,18 @@ export const sendMsg = (conn, msg) => {
 }
 
 // 处理接收的消息
-function receiveMsg(){
+function receiveMsg() {
 
+}
+
+// get用户的信息
+export const getUserInfo = () => {
+    return JSON.parse(sessionStorage.getItem("userInfo"));
+}
+
+// set用户的信息
+export const setUserInfo = (userinfo) => {
+    sessionStorage.setItem("userInfo",JSON.stringify(userinfo));
 }
 
 

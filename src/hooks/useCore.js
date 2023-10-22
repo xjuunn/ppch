@@ -8,7 +8,7 @@ let userList = new Map();
 export let userInfoList = new Map();
 let receiveMsgHandler = new Map();
 let userinfolistchangehandler = [];
-
+let msgcallback;
 // 初始化Peer
 export const initPeer = () => {
     uid = localStorage.getItem("uid");
@@ -56,12 +56,21 @@ export const initPeer = () => {
 // 初始化消息处理Map
 function initReceiveMsgHandler() {
     addReceiveMsgHandler("用户信息", (data) => {
-        // if(userInfoList.get(data.uid)) return;
         userInfoList.set(data.uid, data.data);
         saveUserInfoList();
         onUserInfoListChange();
     })
+    addReceiveMsgHandler("私聊消息", (data) => {
+        // console.log("收到私聊消息", data);
+        msgcallback(data);
+    })
 }
+
+// 回调 用来传递消息给界面
+export const getMsgCallback = (callback) => {
+    msgcallback = callback;   
+}
+
 
 // 添加一个消息处理
 export const addReceiveMsgHandler = (str, handler) => {
@@ -91,6 +100,11 @@ export const addUser = (uid1) => {
 // 发送一个消息
 export const sendMsg = (conn, msg) => {
     conn.send(JSON.stringify(msg));
+}
+
+// 通过uid发送一个信息
+export const sendMsgByUid = (uid, msg) => {
+    sendMsg(getConnById(uid), msg);
 }
 
 /* 

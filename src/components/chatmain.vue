@@ -10,29 +10,39 @@
                 <msglist></msglist>
             </div>
             <div class="sendmsg">
-                <sendmsg></sendmsg>
+                <sendmsg @do-send="doSend"></sendmsg>
             </div>
         </div>
+
+
     </div>
 </template>
 <script setup>
 import msglist from '@/components/msglist.vue';
 import sendmsg from '@/components/sendbox.vue';
-import { getUserInfo } from '@/hooks/useCore';
-import { onMounted, ref ,watch} from 'vue';
+import { getUserInfo, sendMsgByUid, getMsgCallback } from '@/hooks/useCore';
+import { onMounted, reactive, ref, watch } from 'vue';
 let userinfo = getUserInfo();
 let props = defineProps(['chatmainuid']);
-onMounted(() => {
-    
-})
-watch(()=>props.chatmainuid,(olddata,newdata)=>{
-    console.log(olddata,newdata);
+let msghistory = reactive(new Map());//  消息记录
+watch(() => props.chatmainuid, (olddata, newdata) => {
+    console.log(olddata, newdata);
 })
 
-function test(){
-    
+function doSend(msg) {
+    sendMsgByUid(props.chatmainuid, {
+        type: "私聊消息",
+        uid: getUserInfo().uid,
+        name: getUserInfo().name,
+        token: "",
+        data: msg,
+        time: "",
+    });
 }
-
+getMsgCallback((msg) => {
+    if (!msghistory.get(msg.uid)) msghistory.set(msg.uid, []);
+    msghistory.get(msg.uid).push(msg)
+})
 
 </script>
 <style scoped>

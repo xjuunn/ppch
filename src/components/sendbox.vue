@@ -1,7 +1,7 @@
 <template>
     <div class="sendbox">
-        <textarea></textarea>
-        <div class="sendbutton">
+        <textarea v-model="msg"></textarea>
+        <div class="sendbutton" @click="$emit('doSend',msg)">
             <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"  viewBox="0 0 256 256"
                 class="h-4 w-auto">
                 <path
@@ -13,6 +13,9 @@
     </div>
 </template>
 <script setup>
+import { ref } from 'vue';
+
+let msg = ref("")
 
 </script>
 <style scoped>
@@ -43,6 +46,7 @@ textarea {
     background-color: transparent;
     transition: .2s;
     cursor: pointer;
+    margin-top: 20px;
 }
 
 .sendbutton svg {

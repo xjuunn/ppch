@@ -8,7 +8,7 @@
             <div class="addicon" @click="addUser"><img src="../../public/svg/add.svg" /></div>
         </div>
         <div class="chatlist">
-            <chatitem v-for="(item, index) in chatlist" :key="item.uid" :data="item"></chatitem>
+            <chatitem v-for="(item, index) in chatlist" :key="item.uid" :data="item" @click="$emit('chatitemclick',item.uid)"></chatitem>
         </div>
     </div>
 </template>

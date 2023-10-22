@@ -56,7 +56,7 @@ export const initPeer = () => {
 // 初始化消息处理Map
 function initReceiveMsgHandler() {
     addReceiveMsgHandler("用户信息", (data) => {
-        if(userInfoList.get(data.uid)) return;
+        // if(userInfoList.get(data.uid)) return;
         userInfoList.set(data.uid, data.data);
         saveUserInfoList();
         onUserInfoListChange();
@@ -78,7 +78,7 @@ export const addUser = (uid1) => {
         console.log("已连接1", uid1);
         sendMsg(conn, {
             type: "用户信息",
-            uid:uid1,
+            uid,
             data: getUserInfo(),
         })
     })

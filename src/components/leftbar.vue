@@ -37,7 +37,13 @@ onMounted(() => {
     tx.value.style.backgroundImage = `url("${getUserInfo().img}")`;
 })
 function txclick() {
-    console.log(userInfoList);
+    // let userinfo = getUserInfo();
+    // userinfo.img = "https://odmg.pages.dev/file/18c46734460af2a2c8d78.jpg";
+    // setUserInfo(userinfo);
+
+    console.log(userInfoList)
+
+    
 }
 
 

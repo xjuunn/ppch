@@ -10,10 +10,10 @@
       <leftbar></leftbar>
     </div>
     <div class="userlist">
-      <userlist></userlist>
+      <userlist @chatitemclick="chatitemclick"></userlist>
     </div>
     <div class="chatmain">
-      <chatmain></chatmain>
+      <chatmain :chatmainuid="chatmainuid"></chatmain>
     </div>
   </div>
 </template>
@@ -22,7 +22,13 @@ import leftbar from '@/components/leftbar.vue';
 import userlist from '@/components/userlist.vue';
 import chatmain from '@/components/chatmain.vue';
 import { initPeer } from "@/hooks/useCore";
+import { ref } from 'vue';
+let chatmainuid = ref("");
 initPeer();
+function chatitemclick(uid) {
+  chatmainuid.value = uid;
+}
+
 
 </script>
 

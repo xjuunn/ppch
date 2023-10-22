@@ -2,18 +2,38 @@
     <div class="chatmain">
         <div class="close"></div>
         <div class="head">
-            <div class="name">oDlime</div>
+            <div class="name"> {{ $props.chatmainuid }} </div>
             <div class="menu_item"><img class="menu" src="../../public/svg/ellipsis-horizontal.svg" /></div>
         </div>
         <div class="chatandsend">
-            <div class="msglist"><msglist></msglist></div>
-            <div class="sendmsg"><sendmsg></sendmsg></div>
+            <div class="msglist">
+                <msglist></msglist>
+            </div>
+            <div class="sendmsg">
+                <sendmsg></sendmsg>
+            </div>
         </div>
     </div>
 </template>
 <script setup>
 import msglist from '@/components/msglist.vue';
 import sendmsg from '@/components/sendbox.vue';
+import { getUserInfo } from '@/hooks/useCore';
+import { onMounted, ref ,watch} from 'vue';
+let userinfo = getUserInfo();
+let props = defineProps(['chatmainuid']);
+onMounted(() => {
+    
+})
+watch(()=>props.chatmainuid,(olddata,newdata)=>{
+    console.log(olddata,newdata);
+})
+
+function test(){
+    
+}
+
+
 </script>
 <style scoped>
 .chatmain {
@@ -21,7 +41,8 @@ import sendmsg from '@/components/sendbox.vue';
     height: 100%;
     font-family: 'Courier New', Courier, monospace;
 }
-.close{
+
+.close {
     height: 20px;
 }
 
@@ -32,34 +53,43 @@ import sendmsg from '@/components/sendbox.vue';
     padding: 0px 10px;
     border-bottom: 1px solid #e7e7e7;
 }
-.name{
+
+.name {
     flex: 1;
     line-height: 30px;
 }
-.menu_item{
+
+.menu_item {
     width: 40px;
     text-align: center;
 }
-.menu_item img{
+
+.menu_item img {
     width: 60%;
     height: 100%;
 }
-.menu_item{
+
+.menu_item {
     transition: .2s;
     filter: saturate(0) hue-rotate(275deg);
 }
-.menu_item:hover{
+
+.menu_item:hover {
     filter: blur(0);
 }
-.chatandsend{
+
+.chatandsend {
     height: calc(100% - 50px);
 }
-.msglist{
+
+.msglist {
     height: calc(100% - 150px);
 }
-.sendmsg{
+
+.sendmsg {
     height: 150px;
     border-top: 1px solid #e7e7e7;
 }
+
 /* border-right: 1px solid #e7e7e7; */
 </style>

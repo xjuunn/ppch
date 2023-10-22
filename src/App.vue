@@ -21,11 +21,8 @@
 import leftbar from '@/components/leftbar.vue';
 import userlist from '@/components/userlist.vue';
 import chatmain from '@/components/chatmain.vue';
-import { initPeer} from "@/hooks/useCore";
-import { onMounted } from 'vue';
-onMounted(()=>{
-  initPeer();
-})
+import { initPeer } from "@/hooks/useCore";
+initPeer();
 
 </script>
 
@@ -58,4 +55,5 @@ onMounted(()=>{
   .appmain>.chatmain {
     display: none;
   }
-}</style>
+}
+</style>

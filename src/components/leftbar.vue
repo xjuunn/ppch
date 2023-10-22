@@ -1,6 +1,6 @@
 <template>
     <div class="bar">
-        <div class="txbox">
+        <div class="txbox" ref="txbox" @click="txclick">
             <div ref="tx" class="tx" :class="$store.state.online ? 'online' : ''"></div>
         </div>
         <div class="leftbar_item item active" @click="clickitem($event)">
@@ -24,8 +24,9 @@
 <script setup>
 import { useStore } from 'vuex';
 import { onMounted, ref } from 'vue';
-import { getUserInfo ,setUserInfo} from '@/hooks/useCore';
+import { getUserInfo, setUserInfo, userInfoList } from '@/hooks/useCore';
 const store = useStore();
+let txbox = ref(null);
 function clickitem(event) {
     let active = document.getElementsByClassName("active")[0];
     if (active) active.classList.toggle("active");
@@ -33,8 +34,11 @@ function clickitem(event) {
 }
 let tx = ref(null);
 onMounted(() => {
-    tx.value.style.backgroundImage =`url("${getUserInfo().img}")`;
+    tx.value.style.backgroundImage = `url("${getUserInfo().img}")`;
 })
+function txclick() {
+    console.log(userInfoList);
+}
 
 
 

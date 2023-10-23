@@ -14,7 +14,6 @@ let msglist2 = ref(null);
 watch(() => props.history,
     (newVal, oldVal) => {
         hislist.value = newVal
-        // msglist2.value.scrollIntoView(false);
         msglist2.value.scrollTo(500, msglist2.value.scrollHeight);
     },
     { deep: true }

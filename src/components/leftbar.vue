@@ -43,7 +43,7 @@ function txclick() {
 
     console.log(userInfoList)
 
-    
+
 }
 
 
@@ -100,6 +100,7 @@ function txclick() {
     margin: 5px 10px;
     border-radius: 10px;
     cursor: default;
+    transition: .3s;
 }
 
 .bar>.space {

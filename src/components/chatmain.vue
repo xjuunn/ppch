@@ -1,6 +1,6 @@
 <template>
     <div class="chatmain logobox" v-if="!chatmainuid">
-       <img class="logo" src="../../public/svg/logo.svg"/>
+       <img class="logo" src="../../public/svg/bg.svg"/>
     </div>
     <div class="chatmain">
         <div class="close"></div>
@@ -68,11 +68,13 @@ function refushMsg() {
 </script>
 <style scoped>
 .logo{
-    width: 100px;
+    width: 200px;
+    margin-top: 30vh;
+    /* opacity: .06; */
 }
 .logobox{
     text-align: center;
-    display: flex;
+    /* display: flex; */
     justify-content: center;
 }
 .chatmain {

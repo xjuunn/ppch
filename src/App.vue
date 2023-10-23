@@ -28,7 +28,19 @@ initPeer();
 function chatitemclick(uid) {
   chatmainuid.value = uid;
 }
+pushHistory();
 
+window.addEventListener("popstate", function (e) {
+  
+}, false);
+
+function pushHistory() {
+  var state = {
+    title: "title",
+    url: "#"
+  };
+  window.history.pushState(state, "title", "#");
+}
 
 </script>
 

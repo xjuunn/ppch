@@ -38,11 +38,6 @@ addUserListChangeHandler(() => {
     });
 
 })
-
-
-
-
-
 </script>
 <style scoped>
 .box {

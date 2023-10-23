@@ -1,4 +1,7 @@
 <template>
+    <div class="chatmain logobox" v-if="!chatmainuid">
+       <img class="logo" src="../../public/svg/logo.svg"/>
+    </div>
     <div class="chatmain">
         <div class="close"></div>
         <div class="head">
@@ -64,6 +67,14 @@ function refushMsg() {
 
 </script>
 <style scoped>
+.logo{
+    width: 100px;
+}
+.logobox{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
 .chatmain {
     background-color: #F2F2F2;
     height: 100%;

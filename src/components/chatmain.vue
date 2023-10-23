@@ -7,7 +7,7 @@
         </div>
         <div class="chatandsend">
             <div class="msglist">
-                <msglist></msglist>
+                <msglist :history="activehistory"></msglist>
             </div>
             <div class="sendmsg">
                 <sendmsg @do-send="doSend"></sendmsg>
@@ -25,24 +25,33 @@ import { onMounted, reactive, ref, watch } from 'vue';
 let userinfo = getUserInfo();
 let props = defineProps(['chatmainuid']);
 let msghistory = reactive(new Map());//  消息记录
+let activehistory = ref([]);
 watch(() => props.chatmainuid, (olddata, newdata) => {
-    console.log(olddata, newdata);
+    refushMsg();
 })
 
 function doSend(msg) {
-    sendMsgByUid(props.chatmainuid, {
+    let msgentity = {
         type: "私聊消息",
         uid: getUserInfo().uid,
         name: getUserInfo().name,
         token: "",
         data: msg,
         time: "",
-    });
+    };
+    if (!msghistory.get(props.chatmainuid)) msghistory.set(props.chatmainuid, []);
+    msghistory.get(props.chatmainuid).push(msgentity)
+    sendMsgByUid(props.chatmainuid, msgentity);
+    refushMsg();
 }
 getMsgCallback((msg) => {
     if (!msghistory.get(msg.uid)) msghistory.set(msg.uid, []);
     msghistory.get(msg.uid).push(msg)
+    refushMsg();
 })
+function refushMsg() {
+    activehistory.value = msghistory.get(props.chatmainuid)
+}
 
 </script>
 <style scoped>

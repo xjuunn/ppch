@@ -2,13 +2,15 @@
     <div class="msgitem right">
         <div class="tx"></div>
         <div class="info">
-            <div class="name">oDlime</div>
-            <div class="message">消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息</div>
+            <div class="name">{{ data.name }}</div>
+            <div class="message">{{ data.data }}</div>
         </div>
         <div class="space"></div>
     </div>
 </template>
 <script setup>
+let props = defineProps(['data']);
+
 
 </script>
 <style scoped>

@@ -44,10 +44,12 @@ export const initPeer = () => {
         })
 
         setTimeout(() => {
+            let userinfo = getUserInfo();
+            userinfo.online = true;
             sendMsg(conn, {
                 type: "用户信息",
                 uid,
-                data: getUserInfo(),
+                data: userinfo,
             })
         }, 2000);
     })
@@ -56,6 +58,7 @@ export const initPeer = () => {
 // 初始化消息处理Map
 function initReceiveMsgHandler() {
     addReceiveMsgHandler("用户信息", (data) => {
+        console.log("用户i信息", data);
         userInfoList.set(data.uid, data.data);
         saveUserInfoList();
         onUserInfoListChange();
@@ -68,7 +71,7 @@ function initReceiveMsgHandler() {
 
 // 回调 用来传递消息给界面
 export const getMsgCallback = (callback) => {
-    msgcallback = callback;   
+    msgcallback = callback;
 }
 
 
@@ -85,10 +88,12 @@ export const addUser = (uid1) => {
     conn.on('open', () => {
         userList.set(uid1, conn);
         console.log("已连接1", uid1);
+        let userinfo = getUserInfo();
+        userinfo.online = true;
         sendMsg(conn, {
             type: "用户信息",
             uid,
-            data: getUserInfo(),
+            data: userinfo,
         })
     })
     conn.on("data", (data) => {
@@ -147,16 +152,30 @@ export const addUserListChangeHandler = (handler) => {
 
 // 保存用户信息列表
 function saveUserInfoList() {
+    // userInfoList.forEach(item => {
+    //     item.online = false;
+    // });
     sessionStorage.setItem("userinfolist", JSON.stringify(userInfoList, replacer));
+    let uids = [];
+    if (sessionStorage.getItem("uids")) uids = JSON.parse(sessionStorage.getItem("uids"));
+    userInfoList.forEach(item => {
+        if (uids.includes(item.uid)) {
+            return;
+        }
+        console.log("push",item.uid);
+        uids.push(item.uid)
+    });
+    sessionStorage.setItem("uids", JSON.stringify(uids))
 }
 
 // 根据保存的用户信息重连
 function reConnect() {
-    if (sessionStorage.getItem("userinfolist")) {
-        userInfoList = JSON.parse(sessionStorage.getItem("userinfolist"), reviver);
-        if (userInfoList) {
-            userInfoList.forEach(item => {
-                addUser(item.uid);
+    if (sessionStorage.getItem("uids")) {
+        // userInfoList = JSON.parse(sessionStorage.getItem("userinfolist"), reviver);
+        let uids = JSON.parse(sessionStorage.getItem("uids"));
+        if (uids) {
+            uids.forEach(item => {
+                addUser(item);
             });
         }
     }

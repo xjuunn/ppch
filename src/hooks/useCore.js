@@ -58,7 +58,6 @@ export const initPeer = () => {
 // 初始化消息处理Map
 function initReceiveMsgHandler() {
     addReceiveMsgHandler("用户信息", (data) => {
-        console.log("用户i信息", data);
         userInfoList.set(data.uid, data.data);
         saveUserInfoList();
         onUserInfoListChange();

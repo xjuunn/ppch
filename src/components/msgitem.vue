@@ -1,6 +1,6 @@
 <template>
-    <div class="msgitem right">
-        <div class="tx"></div>
+    <div class="msgitem" :class="fx">
+        <div class="tx" ref="tx"></div>
         <div class="info">
             <div class="name">{{ data.name }}</div>
             <div class="message">{{ data.data }}</div>
@@ -9,60 +9,80 @@
     </div>
 </template>
 <script setup>
-let props = defineProps(['data']);
+import { getUserInfo } from '@/hooks/useCore';
+import { onMounted, ref } from 'vue';
 
+let props = defineProps(['data']);
+let fx = ref("left");
+let userinfo = getUserInfo();
+let tx = ref(null);
+onMounted(() => {
+    if (userinfo.uid == props.data.uid) {
+        fx.value = "right";
+    }
+    tx.value.style.backgroundImage = `url("${props.data.img}")`;
+})
 
 </script>
 <style scoped>
-.msgitem{
+.msgitem {
     display: flex;
     padding: 10px;
-    
+
 }
 
-.tx{
+.tx {
     /* display: inline-block; */
     width: 40px;
     height: 40px;
-    background-image: url("https://odmg.pages.dev/file/18c46734460af2a2c8d78.jpg");
+    /* background-image: url("https://odmg.pages.dev/file/18c46734460af2a2c8d78.jpg"); */
     background-size: cover;
     border-radius: 50%;
-    flex:none;
+    flex: none;
 }
-.info{
+
+.info {
     margin: 0px 7px;
     display: inline-block;
 }
-.name{
+
+.name {
     font-size: 13px;
     color: #777;
 }
-.message{
+
+.message {
     background: #fff;
     padding: 7px 8px;
     border-radius: 5px;
+    white-space: normal;
+    text-wrap:pretty;
     flex: 1;
 
 }
-.space{
+
+.space {
     width: 100px;
     height: 20px;
     display: inline-block;
 }
-.right{
+
+.right {
     justify-content: right;
 }
-.right .tx{
+
+.right .tx {
     order: 3;
 }
-.right .info{
+
+.right .info {
     order: 2;
 }
-.right .name{
+
+.right .name {
     text-align: right;
 }
-.right .space{
-    order: 1;
-}
 
-</style>
+.right .space {
+    order: 1;
+}</style>

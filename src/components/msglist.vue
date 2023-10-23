@@ -1,27 +1,24 @@
 <template>
-    <div class="msglist2">
-        <msgitem v-for="(item, index) in hislist" :key="item.uid" :data="item"></msgitem>
+    <div class="msglist2" ref="msglist2">
+        <msgitem v-for="(item, index) in hislist" :key="item.uid+index" :data="item"></msgitem>
+
+        <div class="space"><br><br><br><br></div>
     </div>
 </template>
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import msgitem from './msgitem.vue';
 let props = defineProps(['history']);
-defineEmits(["refush"])
 let hislist = ref([]);
-onMounted(() => {
-    hislist.value = props.history
-})
-
-
-
-/**
- * 刷新消息 需要使用emits，连接父组件的刷新事件
- */
-
-function refush(){
-    hislist.value = props.history
-}
+let msglist2 = ref(null);
+watch(() => props.history,
+    (newVal, oldVal) => {
+        hislist.value = newVal
+        // msglist2.value.scrollIntoView(false);
+        msglist2.value.scrollTo(500, msglist2.value.scrollHeight);
+    },
+    { deep: true }
+)
 
 </script>
 <style scoped>
@@ -29,6 +26,12 @@ function refush(){
     height: 100%;
     display: flex;
     flex-direction: column;
-
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    margin-bottom: 30px;
+}
+.space{
+    display: inline-block;
+    height: 60px;
 }
 </style>

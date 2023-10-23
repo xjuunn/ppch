@@ -7,14 +7,12 @@
         </div>
         <div class="chatandsend">
             <div class="msglist">
-                <msglist :history="activehistory"></msglist>
+                <msglist :history="activehistory" :refush="refush"></msglist>
             </div>
             <div class="sendmsg">
                 <sendmsg @do-send="doSend"></sendmsg>
             </div>
         </div>
-
-
     </div>
 </template>
 <script setup>
@@ -26,15 +24,23 @@ let userinfo = getUserInfo();
 let props = defineProps(['chatmainuid']);
 let msghistory = reactive(new Map());//  消息记录
 let activehistory = ref([]);
-watch(() => props.chatmainuid, (olddata, newdata) => {
+watch(() => props.chatmainuid, (newdata, olddata) => {
     refushMsg();
 })
+let refushchat = () => { 
+    // console.log("还没有初始化")
+};
+function refush(c) {
+    refushchat = c;
+}
 
 function doSend(msg) {
+    refushchat();
     let msgentity = {
         type: "私聊消息",
         uid: getUserInfo().uid,
         name: getUserInfo().name,
+        img:getUserInfo().img,
         token: "",
         data: msg,
         time: "",
@@ -50,7 +56,10 @@ getMsgCallback((msg) => {
     refushMsg();
 })
 function refushMsg() {
-    activehistory.value = msghistory.get(props.chatmainuid)
+    if (!msghistory.get(props.chatmainuid)) activehistory.value = [];
+    else activehistory.value = msghistory.get(props.chatmainuid);
+    // console.log("此时的消息列表， 父", activehistory.value);
+    refushchat();
 }
 
 </script>

@@ -1,7 +1,7 @@
 <template>
     <div class="sendbox">
         <textarea v-model="msg"></textarea>
-        <div class="sendbutton" @click="$emit('doSend',msg)">
+        <div class="sendbutton" @click="$emit('doSend',msg,clear())">
             <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"  viewBox="0 0 256 256"
                 class="h-4 w-auto">
                 <path
@@ -16,6 +16,10 @@
 import { ref } from 'vue';
 
 let msg = ref("")
+
+function clear(){
+    msg.value = "";
+}
 
 </script>
 <style scoped>
